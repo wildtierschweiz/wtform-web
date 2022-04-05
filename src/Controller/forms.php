@@ -7,6 +7,7 @@ namespace WildtierSchweiz\WtFormWeb\Controller;
 use WildtierSchweiz\WtFormWeb\Application;
 use WildtierSchweiz\WtFormWeb\Model\Form;
 use WildtierSchweiz\WtFormWeb\Model\FormControl;
+use WildtierSchweiz\WtFormWeb\Model\FormPost;
 
 final class forms extends Application
 {
@@ -36,5 +37,29 @@ final class forms extends Application
         }
 
         self::$_f3->set('VIEWVARS.form._controls', $_form_control_rec);
+    }
+
+    /**
+     * form posts
+     */
+    function post()
+    {
+        $_form = new Form();
+        
+        if (!($_form_name = self::$_f3->get('PARAMS.form'))) {
+            self::$_f3->error(404);
+            return;
+        }
+
+        $_form_rec = $_form->getFormByName($_form_name);
+        if (!count($_form_rec)) {
+            self::$_f3->error(404);
+            return;
+        }
+
+        $_form_id = $_form_rec[0]['id'];
+
+        $_form_post = new FormPost();
+        $_form_post->createFormPost($_form_id, self::$_f3->get('POST'));
     }
 }

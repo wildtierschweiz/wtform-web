@@ -1,7 +1,7 @@
-<h1>{{ @VIEWVARS.form.name }}</h1>
-<p class="lead">{{ @VIEWVARS.form.description }}</h1>
-<form>
-    <repeat group="{{ @VIEWVARS.form._controls }}" key="{{ @key }}" value="{{ @value }}">
+<h1>{{ @VIEWVARS.form.name ?? '' }}</h1>
+<p class="lead">{{ @VIEWVARS.form.description ?? '' }}</h1>
+<form method="POST">
+    <repeat group="{{ @VIEWVARS.form._controls ?? [] }}" key="{{ @key }}" value="{{ @value }}">
         <div class="form-floating">
             <input class="form-control mt-2" type="{{ @value.type ?? 'text' }}" id="{{ @value.name }}"
                 name="{{ @value.name }}" placeholder="{{ @value.label }}" @value.is_required ? 'required' : '' }}>
