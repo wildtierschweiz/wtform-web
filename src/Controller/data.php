@@ -36,7 +36,7 @@ final class data extends Application
         foreach ($_form_post_rec as $_r) {
             self::$_f3->set('RESPONSE.filename', 'data.csv');
             self::$_f3->set('RESPONSE.mime', 'text/csv');
-            self::$_f3->set('RESPONSE.data', implode(';', json_decode($_r['data'], true)) . "\n");
+            self::$_f3->set('RESPONSE.data', self::$_f3->get('RESPONSE.data') . implode(';', json_decode($_r['data'], true)) . "\n");
         }
     }
 }
