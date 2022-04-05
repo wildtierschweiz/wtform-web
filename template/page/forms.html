@@ -1,5 +1,5 @@
 <h1>{{ @VIEWVARS.form.name }}</h1>
-
+<p class="lead">{{ @VIEWVARS.form.description }}</h1>
 <form>
     <repeat group="{{ @VIEWVARS.form._controls }}" key="{{ @key }}" value="{{ @value }}">
         <div class="form-floating">
