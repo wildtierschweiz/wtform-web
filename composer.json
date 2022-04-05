@@ -1,0 +1,20 @@
+{
+    "name": "wildtierschweiz/wtform-web",
+    "description": "create user forms and generate reports",
+    "type": "project",
+    "require": {
+        "bcosca/fatfree-core": "^3.8"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "WildtierSchweiz\\WtFormWeb\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Duersteler",
+            "email": "daniel.duersteler@wildtier.ch"
+        }
+    ]
+}
