@@ -29,4 +29,15 @@ class FormControl extends Mapper
         }
         return $_result;
     }
+
+    /**
+     * get csv header 
+     */
+    function getCsvHeaderByFormId(int $id_form_, string $delimiter_ = ';'): string
+    {
+        $_result = [];
+        foreach ($this->find(['id_form = ?', $id_form_], ['order' => 'sortnr ASC']) as $_r)
+            $_result[] = $_r['name'];
+        return implode(';', $_result);
+    }
 }
