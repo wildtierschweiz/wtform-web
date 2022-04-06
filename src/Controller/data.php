@@ -32,7 +32,9 @@ final class data extends Application
         $_form_post_rec = $_form_post->getFormPostsByFormId($_form_id);
         self::$_f3->set('RESPONSE.filename', 'data.csv');
         self::$_f3->set('RESPONSE.mime', 'text/csv');
+        // output bom for excel compatible csv
+        self::$_f3->set('RESPONSE.data', (chr(0xEF) . chr(0xBB) . chr(0xBF)));
         foreach ($_form_post_rec as $_r)
-            self::$_f3->set('RESPONSE.data', self::$_f3->get('RESPONSE.data') . implode(';', json_decode($_r['data'], true)) . "\n");
+            self::$_f3->set('RESPONSE.data', self::$_f3->get('RESPONSE.data') . implode(';', json_decode(/*utf8_decode(*/$_r['data']/*)*/, true)) . "\n");
     }
 }

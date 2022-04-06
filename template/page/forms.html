@@ -2,14 +2,37 @@
 <p class="lead">{{ @VIEWVARS.form.description ?? '' }}</p>
 <form class="needs-validation" method="POST">
     <repeat group="{{ @VIEWVARS.form._controls ?? [] }}" key="{{ @key }}" value="{{ @value }}">
-        <div class="form-floating">
-            <input aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
-                type="{{ @value.type ?? 'text' }}" name="{{ @value.name }}"
-                placeholder="{{ @value.label }}">
-            <label for="{{ @value.name }}">{{ @value.label }}</label>
-            <div class="valid-feedback">{{ @value.feedback_valid }}</div>
-            <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
-        </div>
+
+
+        <check if="@value.type === 'select'">
+            <div class="form-floating">
+                <select class="form-select mt-2 {{ @value._class ?? '' }}" name="{{ @value.name }}"
+                    id="{{ @value.name }}" aria-label="Floating label select example">
+                    <option value="">Please select ...</option>
+                    <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}">
+                        <option value="{{ @val }}" {{ @val === (@POST[@value.name] ?? '') ? 'selected' : '' }}>{{ @label }}</option>
+                    </repeat>
+                </select>
+                <label for="{{ @value.name }}">{{ @value.label }}</label>
+                <div class="valid-feedback">{{ @value.feedback_valid }}</div>
+                <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
+            </div>
+        </check>
+
+
+        <check if="@value.type === 'text' || @value.type === 'number' ||  @value.type === 'email' || @value.type === 'password'">
+            <div class="form-floating">
+                <input name="{{ @value.name }}" id="{{ @value.name }}" value="{{ @POST[@value.name] ?? '' }}"
+                    aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
+                    type="{{ @value.type ?? 'text' }}" placeholder="{{ @value.label }}">
+                <label for="{{ @value.name }}">{{ @value.label }}</label>
+                <div class="valid-feedback">{{ @value.feedback_valid }}</div>
+                <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
+            </div>
+        </check>
+
+
+
     </repeat>
-    <button class="btn btn-primary mt-3" type="submit">Submit</button>
+    <button class="btn btn-lg btn-primary mt-3" type="submit">{{ @VIEWVARS.form.label_submit ?? 'Submit' }}</button>
 </form>
