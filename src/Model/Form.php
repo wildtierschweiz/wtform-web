@@ -19,10 +19,22 @@ class Form extends Mapper
      * @param string $form_name_
      * @return array
      */
-    function getFormByName(string $form_name_): array
+    function getFormBySlug(string $form_name_): array
     {
         $_result = [];
-        foreach ($this->find(['name = ?', $form_name_]) as $_r)
+        foreach ($this->find(['slug = ?', $form_name_]) as $_r)
+            $_result[] = $_r->cast();
+        return $_result;
+    }
+
+    /**
+     * get all forms
+     * @return array
+     */
+    function getForms(): array
+    {
+        $_result = [];
+        foreach ($this->find(NULL, ['order' => 'name ASC']) as $_r)
             $_result[] = $_r->cast();
         return $_result;
     }

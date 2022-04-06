@@ -1,11 +1,14 @@
 <h1>{{ @VIEWVARS.form.name ?? '' }}</h1>
-<p class="lead">{{ @VIEWVARS.form.description ?? '' }}</h1>
-<form method="POST">
+<p class="lead">{{ @VIEWVARS.form.description ?? '' }}</p>
+<form class="needs-validation" method="POST">
     <repeat group="{{ @VIEWVARS.form._controls ?? [] }}" key="{{ @key }}" value="{{ @value }}">
         <div class="form-floating">
-            <input class="form-control mt-2" type="{{ @value.type ?? 'text' }}" id="{{ @value.name }}"
-                name="{{ @value.name }}" placeholder="{{ @value.label }}" @value.is_required ? 'required' : '' }}>
+            <input aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
+                type="{{ @value.type ?? 'text' }}" name="{{ @value.name }}"
+                placeholder="{{ @value.label }}">
             <label for="{{ @value.name }}">{{ @value.label }}</label>
+            <div class="valid-feedback">{{ @value.feedback_valid }}</div>
+            <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
         </div>
     </repeat>
     <button class="btn btn-primary mt-3" type="submit">Submit</button>
