@@ -74,7 +74,7 @@ final class forms extends Application
     {
         $_result = true;
         foreach ($this->_form['_controls'] as $_key => $_ctrl) {
-            if ($_ctrl['is_required'] && !$_POST[$_ctrl['name']]) {
+            if ($_ctrl['is_required'] && !($_POST[$_ctrl['name']] ?? '')) {
                 $this->_form['_controls'][$_key]['_class'] = 'is-invalid';
                 $_result = false;
             } else {

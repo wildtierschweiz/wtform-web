@@ -20,16 +20,19 @@
                 </label>
             </div>
             -->
-            <label class="form-check-label mt-2 mb-2">{{ @value.label }}</label>
-            <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}" counter="{{ @cnt }}">
-                <div class="form-check">
-                    <input type="{{ @value.type }}" value="{{ @val }}" class="form-check-input"
-                        id="{{ @value.name . @cnt }}" name="{{ @value.name }}">
-                    <label class="form-check-label" for="{{ @value.name . @cnt }}">{{ @label }}</label>
-                    <div class="invalid-feedback">{{ @value.feedback_invalid }}</div>
-                    <div class="valid-feedback">{{ @value.feedback_valid }}</div>
-                </div>
-            </repeat>
+            <fieldset class="mt-2 p-2" style="border:1px solid lightgrey;border-radius:4px;">
+                <label class="form-check-label mb-2">{{ @value.label }}</label>
+                <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}" counter="{{ @cnt }}">
+                    <div class="form-check">
+                        <input type="{{ @value.type }}" value="{{ @val }}" class="form-check-input {{ @value._class ?? '' }}"
+                            id="{{ @value.name . @cnt }}" name="{{ @value.name }}" {{ @val==(@POST[@value.name] ?? '' )
+                            ? 'checked' : '' }}>
+                        <label class="form-check-label" for="{{ @value.name . @cnt }}">{{ @label }}</label>
+                        <div class="invalid-feedback">{{ @value.feedback_invalid }}</div>
+                        <div class="valid-feedback">{{ @value.feedback_valid }}</div>
+                    </div>
+                </repeat>
+            </fieldset>
         </check>
 
         <check if="@value.type === 'select'">
