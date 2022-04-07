@@ -40,7 +40,10 @@ final class forms extends Application
         }
         if ($this->validateForm() === true) {
             $_form_post = new FormPost();
-            $_form_post->createFormPost($this->_form['id'], self::$_f3->get('POST'));
+            if (!$_form_post->createFormPost($this->_form['id'], self::$_f3->get('POST'))) {
+                self::$_f3->error(400);
+                return;
+            }
         }
         self::$_f3->set('VIEWVARS.form', $this->_form);
     }

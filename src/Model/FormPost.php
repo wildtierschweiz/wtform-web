@@ -17,7 +17,8 @@ class FormPost extends Mapper
     /**
      * get form controls for a form
      * @param int $id_form_
-     * @return array
+     * @param array $data_
+     * @return int
      */
     function createFormPost(int $id_form_, array $data_): int
     {

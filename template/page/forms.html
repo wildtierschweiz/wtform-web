@@ -20,7 +20,8 @@
                 </label>
             </div>
             -->
-            <fieldset class="mt-2 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
+            <fieldset
+                class="mt-2 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
                 <label class="form-check-label mb-2">{{ @value.label }}</label>
                 <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}" counter="{{ @cnt }}">
                     <div class="form-check">
@@ -60,6 +61,17 @@
                 <input name="{{ @value.name }}" id="{{ @value.name }}" value="{{ @POST[@value.name] ?? '' }}"
                     aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
                     type="{{ @value.type ?? 'text' }}" placeholder="{{ @value.label }}">
+                <label for="{{ @value.name }}">{{ @value.label }}</label>
+                <div class="valid-feedback">{{ @value.feedback_valid }}</div>
+                <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
+            </div>
+        </check>
+
+        <check if="@value.type === 'textarea'">
+            <div class="form-floating">
+                <textarea rows="5" name="{{ @value.name }}" id="{{ @value.name }}" aria-describedby="{{ @value.name }}-feedback"
+                    class="form-control mt-2 {{ @value._class ?? '' }}"
+                    placeholder="{{ @value.label }}">{{ @POST[@value.name] ?? '' }}</textarea>
                 <label for="{{ @value.name }}">{{ @value.label }}</label>
                 <div class="valid-feedback">{{ @value.feedback_valid }}</div>
                 <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>

@@ -1,6 +1,19 @@
 body {
     margin-top: 50px;
 }
+
 fieldset {
-    border-color:grey;
+    border-color: grey;
+}
+
+/*
+.is-invalid {
+    background-color:rgb(255, 188, 188);
+}
+.is-valid {
+    background-color: #a3ffca
+}
+*/
+.form-floating textarea.form-control {
+    height: 200px;
 }
