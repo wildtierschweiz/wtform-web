@@ -84,6 +84,7 @@ final class forms extends Application
                 $this->_form['_controls'][$_key]['_class'] = 'is-valid';
             }   
         }
+        $this->_form['_valid'] = $_result;
         return $_result;
     }
 }

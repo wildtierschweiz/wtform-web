@@ -27,7 +27,8 @@
                     <div class="form-check">
                         <input type="{{ @value.type }}" value="{{ @val }}"
                             class="form-check-input {{ @value._class ?? '' }}" id="{{ @value.name . @cnt }}"
-                            name="{{ @value.name }}" {{ @val==(@POST[@value.name] ?? '' ) ? 'checked' : '' }}>
+                            name="{{ @value.name }}" {{ @val==(@POST[@value.name] ?? '' ) ? 'checked' : '' }} {{
+                            (@VIEWVARS.form._valid ?? '' ) ? 'disabled' : '' }}>
                         <label class="form-check-label" for="{{ @value.name . @cnt }}">{{ @label }}</label>
                         <check if="count(@value.options) === @cnt">
                             <div class="invalid-feedback">{{ @value.feedback_invalid }}</div>
@@ -41,7 +42,7 @@
         <check if="@value.type === 'select'">
             <div class="form-floating">
                 <select class="form-select mt-2 {{ @value._class ?? '' }}" name="{{ @value.name }}"
-                    id="{{ @value.name }}" aria-label="Floating label select example">
+                    id="{{ @value.name }}" aria-label="" {{ (@VIEWVARS.form._valid ?? '' ) ? 'disabled' : '' }}>
                     <option value="">Please select ...</option>
                     <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}">
                         <option value="{{ @val }}" {{ @val===(@POST[@value.name] ?? '' ) ? 'selected' : '' }}>{{ @label
@@ -60,7 +61,8 @@
             <div class="form-floating">
                 <input name="{{ @value.name }}" id="{{ @value.name }}" value="{{ @POST[@value.name] ?? '' }}"
                     aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
-                    type="{{ @value.type ?? 'text' }}" placeholder="{{ @value.label }}">
+                    type="{{ @value.type ?? 'text' }}" placeholder="{{ @value.label }}" {{ (@VIEWVARS.form._valid ?? ''
+                    ) ? 'disabled' : '' }}>
                 <label for="{{ @value.name }}">{{ @value.label }}</label>
                 <div class="valid-feedback">{{ @value.feedback_valid }}</div>
                 <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
@@ -69,9 +71,10 @@
 
         <check if="@value.type === 'textarea'">
             <div class="form-floating">
-                <textarea rows="5" name="{{ @value.name }}" id="{{ @value.name }}" aria-describedby="{{ @value.name }}-feedback"
-                    class="form-control mt-2 {{ @value._class ?? '' }}"
-                    placeholder="{{ @value.label }}">{{ @POST[@value.name] ?? '' }}</textarea>
+                <textarea rows="5" name="{{ @value.name }}" id="{{ @value.name }}"
+                    aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
+                    placeholder="{{ @value.label }}" {{ (@VIEWVARS.form._valid ?? '' ) ? 'disabled' : ''
+                    }}>{{ @POST[@value.name] ?? '' }}</textarea>
                 <label for="{{ @value.name }}">{{ @value.label }}</label>
                 <div class="valid-feedback">{{ @value.feedback_valid }}</div>
                 <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
@@ -79,5 +82,6 @@
         </check>
 
     </repeat>
-    <button class="btn btn-lg btn-primary mt-3" type="submit">{{ @VIEWVARS.form.label_submit ?? 'Submit' }}</button>
+    <button class="btn btn-lg btn-primary mt-3 {{ (@VIEWVARS.form._valid ?? '') ? 'disabled' : '' }}" type="submit">{{
+        @VIEWVARS.form.label_submit ?? 'Submit' }}</button>
 </form>
