@@ -16,6 +16,8 @@
         font-weight: bold;
     }
 </style>
+<h1>{{ @VIEWVARS.form.label }}</h1>
+<p>{{ @VIEWVARS.form.description }}</p>
 <table>
     <repeat group="@POST" key="@key" value="@value">
         <tr>
