@@ -50,7 +50,7 @@ final class forms extends Application
                 if ($_form_service->postForm(self::$_f3->get('POST')) === true) {
                     $_mail_service = MailService::instance();
                     $_mail_service->sendMail(
-                        [$_form['recv_email'] => $_form['recv_name']],
+                        [$_form['recv_mail'] => $_form['recv_name']],
                         'Wildtier Schweiz (Forms) - ' . $_form['label'],
                         ''
                     );
