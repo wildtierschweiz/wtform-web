@@ -1,3 +1,5 @@
-<h1>Error {{ @ERROR.code }}</h1>
-<p class="lead">{{ @ERROR.text }}</p>
-<a href="javascript:history.back()" class="btn btn-primary">Back</a>
+<div class="alert alert-danger" role="alert">
+    <h1>{{ @ERROR.status }} ({{ @ERROR.code }})</h1>
+    <p class="lead">{{ @ERROR.text }}</p>
+    <a href="javascript:history.back()" class="btn btn-primary">Back</a>
+</div>
