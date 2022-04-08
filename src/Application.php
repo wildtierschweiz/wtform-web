@@ -33,7 +33,6 @@ class Application extends Prefab
      */
     function __construct()
     {
-        session_start();
         self::$_f3 = Base::instance();
         foreach (glob('../config/*.ini') as $_config)
             self::$_f3->config($_config);
@@ -162,6 +161,15 @@ class Application extends Prefab
     static function getMail(): SMTP
     {
         return self::$_mail;
+    }
+
+    /**
+     * get F3 instance
+     * @return Base
+     */
+    static function getF3(): Base
+    {
+        return self::$_f3;
     }
 
     /**

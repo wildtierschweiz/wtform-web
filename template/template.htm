@@ -15,13 +15,18 @@
 </head>
 
 <body>
-    <include href="{{ 'partial/nav.html' }}" />
-    <main class="container">
+    <header>
+        <include href="{{ 'partial/nav.html' }}" />
+    </header>
+    <main class="container mt-5 mb-5">
         <check if="@PARAMS.page ?? ''">
             <include href="{{ 'page/' . @PARAMS.page . '.html' }}"
                 if="{{ file_exists(@UI.'page/' . @PARAMS.page . '.html') }}" />
         </check>
     </main>
+    <footer>
+        
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"
         integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

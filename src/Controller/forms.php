@@ -7,6 +7,7 @@ namespace WildtierSchweiz\WtFormWeb\Controller;
 use Exception;
 use WildtierSchweiz\WtFormWeb\Application;
 use WildtierSchweiz\WtFormWeb\Service\FormService;
+use WildtierSchweiz\WtFormWeb\Service\MailService;
 
 final class forms extends Application
 {
@@ -38,10 +39,17 @@ final class forms extends Application
         $_form_service = FormService::instance();
         $_form_slug = self::$_f3->get('PARAMS.form');
         $_form_lang = self::$_f3->get('PARAMS.lang');
+        if (!$_form_slug) {
+            self::$_f3->error(404);
+            return;
+        }
         try {
             $_form_service->loadForm($_form_slug, $_form_lang);
-            if ($_form_service->validateForm() === true)
-                $_form_service->postForm(self::$_f3->get('POST'));
+            if ($_form_service->validateForm() === true) {
+                if ($_form_service->postForm(self::$_f3->get('POST')) === true) {
+                    $_mail_service = MailService::instance();
+                }
+            }
             self::$_f3->set('VIEWVARS.form', $_form_service->getForm());
         } catch (Exception $e_) {
             self::$_f3->error(500, $e_->getMessage());

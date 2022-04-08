@@ -4,20 +4,30 @@ declare(strict_types=1);
 
 namespace WildtierSchweiz\WtFormWeb\Service;
 
+use Base;
 use Exception;
 use Prefab;
+use WildtierSchweiz\WtFormWeb\Application;
 use WildtierSchweiz\WtFormWeb\Model\User;
 
 class AuthService extends Prefab
 {
+    /**
+     * @var Base
+     * f3 framework instance
+     */
+    private static Base $_f3;
+
     function __construct()
     {
+        self::$_f3 = Application::instance()::getF3();
     }
 
     /**
      * perform a login
      * @param string $email_
      * @param string $password_
+     * @throws LOGIN_FAILED
      * @return bool
      */
     static function login(string $email_, string $password_): bool
@@ -25,13 +35,14 @@ class AuthService extends Prefab
         $_user = new User();
         $_user_rec = $_user->getUserByEmailAddress($email_);
         if (!count($_user_rec) || !password_verify($password_, $_user_rec[0]['password']))
-            return false;
+            throw new Exception('LOGIN_FAILED');
         self::setUserId($_user_rec[0]['email']);
         return true;
     }
 
     /**
      * end a user session
+     * @return void
      */
     static function logout(): void
     {
@@ -53,9 +64,7 @@ class AuthService extends Prefab
     }
 
     /**
-     * perform a login
-     * @param string $email_
-     * @param string $password_
+     * check if a user is logged in
      * @return bool
      */
     static function isAuthenticated(): bool
@@ -69,7 +78,7 @@ class AuthService extends Prefab
      */
     static function getUserId(): string
     {
-        return $_SESSION['user'] ?? '';
+        return self::$_f3->get('SESSION.user') ?? '';
     }
 
     /**
@@ -79,6 +88,6 @@ class AuthService extends Prefab
      */
     static private function setUserId(string $user_id_): string
     {
-        return $_SESSION['user'] = $user_id_;
+        return self::$_f3->set('SESSION.user', $user_id_);
     }
 }

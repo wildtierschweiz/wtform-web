@@ -99,12 +99,14 @@ class FormService extends Prefab
      * save the post
      * @param array $data_
      * @throws FORM_NOT_SAVED
+     * @return bool
      */
-    static function postForm(array $data_)
+    static function postForm(array $data_): bool
     {
         $_form_post = new FormPost();
         if (!$_form_post->createFormPost(self::$_form['id'], $data_))
             throw new Exception('FORM_NOT_SAVED');
+        return true;
     }
 
     /**
