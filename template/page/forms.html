@@ -96,6 +96,9 @@
         </check>
 
     </repeat>
-    <button class="btn btn-lg btn-primary mt-3 {{ (@VIEWVARS.form._valid ?? '') ? 'disabled' : '' }}" type="submit">{{
-        @VIEWVARS.form.label_submit ?? 'Submit' }}</button>
+
+    <check if="!isset(@VIEWVARS.form._valid) || @VIEWVARS.form._valid === false">
+        <button class="btn btn-lg btn-primary mt-3" type="submit">{{
+            @VIEWVARS.form.label_submit ?? 'Submit' }}</button>
+    </check>
 </form>
