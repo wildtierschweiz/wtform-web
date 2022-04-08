@@ -1,6 +1,6 @@
 <check if="\WildtierSchweiz\WtFormWeb\Service\AuthService::isAuthenticated()">
     <true>
-        <a class="text-danger badge badge-sm rounded-0" href="/{{ @PARAMS.lang }}/logout" >Logout</a>
+        <p class="text-dark badge badge-sm rounded-0">{{ \WildtierSchweiz\WtFormWeb\Service\AuthService::getUserId() }} - <a class="text-danger" href="/{{ @PARAMS.lang }}/logout" >Logout</a></p>
     </true>
     <false>
         <a class="badge badge-sm rounded-0" href="/{{ @PARAMS.lang }}/login" >Login</a>

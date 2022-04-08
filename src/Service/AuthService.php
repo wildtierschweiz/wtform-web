@@ -67,7 +67,7 @@ class AuthService extends Prefab
      * get the logged in user id
      * @return string
      */
-    static private function getUserId(): string
+    static function getUserId(): string
     {
         return $_SESSION['user'] ?? '';
     }
