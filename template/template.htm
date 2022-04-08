@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <include href="{{ 'partial/nav.html' }}" />
     <main class="container">
         <check if="@PARAMS.page ?? ''">
             <include href="{{ 'page/' . @PARAMS.page . '.html' }}"
