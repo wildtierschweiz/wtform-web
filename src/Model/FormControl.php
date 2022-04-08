@@ -22,11 +22,8 @@ class FormControl extends Mapper
     function getFormControlsByFormId(int $id_form_): array
     {
         $_result = [];
-        foreach ($this->find(['id_form = ?', $id_form_], ['order' => 'sortnr ASC']) as $_r) {
-            $_controls = $_r->cast();
-            $_controls['options'] = json_decode($_controls['options'] ?? '', true);
-            $_result[] = $_controls;
-        }
+        foreach ($this->find(['id_form = ?', $id_form_], ['order' => 'sortnr ASC']) as $_r)
+            $_result[] = $_r->cast();
         return $_result;
     }
 
@@ -38,6 +35,6 @@ class FormControl extends Mapper
         $_result = [];
         foreach ($this->find(['id_form = ?', $id_form_], ['order' => 'sortnr ASC']) as $_r)
             $_result[] = $_r['name'];
-        return implode(';', $_result);
+        return implode($delimiter_, $_result);
     }
 }

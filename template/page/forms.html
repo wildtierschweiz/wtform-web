@@ -45,7 +45,7 @@
                     id="{{ @value.name }}" aria-label="" {{ (@VIEWVARS.form._valid ?? '' ) ? 'disabled' : '' }}>
                     <option value="">Please select ...</option>
                     <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}">
-                        <option value="{{ @val }}" {{ @val===(@POST[@value.name] ?? '' ) ? 'selected' : '' }}>{{ @label
+                        <option value="{{ @val }}" {{ @val==(@POST[@value.name] ?? '' ) ? 'selected' : '' }}>{{ @label
                             }}</option>
                     </repeat>
                 </select>
