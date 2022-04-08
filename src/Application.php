@@ -126,8 +126,6 @@ class Application extends Prefab
                 echo $f3_->get('RESPONSE.data');
                 break;
         }
-        // reset session based flash messages
-        //$f3_->set('SESSION.message', []);
     }
 
     /**

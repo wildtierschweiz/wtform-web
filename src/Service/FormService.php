@@ -169,6 +169,24 @@ class FormService extends Prefab
     }
 
     /**
+     * get form posts by form slug
+     * @param string $form_slug_
+     * @return array
+     */
+    static function getFormPostList(string $form_slug_): array
+    {
+        $_result = [];
+        $_form = new Form();
+        $_form_rec = $_form->getFormBySlug($form_slug_);
+        if (!count($_form_rec))
+            return $_result;
+        $_form_post = new FormPost();
+        $_form_post_rec = $_form_post->getFormPostsByFormId($_form_rec[0]['id']);
+        $_result = $_form_post_rec;
+        return $_result;
+    }
+
+    /**
      * get loaded form config
      * @return array
      */

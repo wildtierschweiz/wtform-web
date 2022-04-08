@@ -4,12 +4,16 @@
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Posts</th>
+        <th>Receiver</th>
         <th>Options</th>
     </tr>
     <repeat group="{{ @VIEWVARS.forms ?? [] }}" key="{{ @key }}" value="{{ @value }}">
         <tr>
             <td>{{ @value.label }}</td>
             <td>{{ @value.description }}</td>
+            <td>{{ count(@value._posts) }}</td>
+            <td>{{ @value.recv_mail }}</td>
             <td><a href="/{{ @PARAMS.lang }}/{{ @PARAMS.page }}/{{ @value.slug }}"
                     class="btn btn-sm btn-primary">Download</a>
                 <a href="/{{ @PARAMS.lang }}/forms/{{ @value.slug }}"

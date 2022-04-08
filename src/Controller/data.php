@@ -25,7 +25,11 @@ final class data extends Application
         $_form_slug = self::$_f3->get('PARAMS.form');
         $_form_lang = self::$_f3->get('PARAMS.lang');
         if (!$_form_slug) {
-            self::$_f3->set('VIEWVARS.forms', $_form_service->getFormList($_form_lang));
+            $_form_rec = $_form_service->getFormList($_form_lang);
+            foreach ($_form_rec as $_key => $_value) {
+                self::$_f3->set('VIEWVARS.forms.'.$_key, $_value);
+                self::$_f3->set('VIEWVARS.forms.'.$_key.'._posts', $_form_service->getFormPostList($_value['slug']));
+            }
             return;
         }
         try {
