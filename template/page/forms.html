@@ -4,12 +4,12 @@
 <check if="isset(@VIEWVARS.form._valid)">
     <check if="@VIEWVARS.form._valid === true">
         <true>
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success mb-5" role="alert">
                 {{ @VIEWVARS.form.feedback_valid }}
             </div>
         </true>
         <false>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger mb-5" role="alert">
                 {{ @VIEWVARS.form.feedback_invalid }}
             </div>
         </false>
