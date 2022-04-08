@@ -22,7 +22,7 @@
     <repeat group="@POST" key="@key" value="@value">
         <tr>
             <td>{{ @key }}</td>
-            <td>{{ @value }}</td>
+            <td>{{ nl2br(@value) }}</td>
         </tr>
     </repeat>
 </table>
