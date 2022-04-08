@@ -6,8 +6,8 @@
 
     td {
         border: 1px solid black;
-        text-align: left;
         padding: 5px;
+        vertical-align: top;
     }
 
     td:nth-child(odd) {
@@ -26,5 +26,7 @@
         </tr>
     </repeat>
 </table>
-<br/>
-<a href="{{ ((@SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . (@SERVER['HTTP_HOST'] ?? '') }}/{{ @PARAMS.lang }}/data/{{ @VIEWVARS.form.slug }}">Download Posts</a>
+<br />
+<a
+    href="{{ ((@SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . (@SERVER['HTTP_HOST'] ?? '') }}/{{ @PARAMS.lang }}/data/{{ @VIEWVARS.form.slug }}">Download
+    Posts</a>
