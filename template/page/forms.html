@@ -20,25 +20,10 @@
     <repeat group="{{ @VIEWVARS.form._controls ?? [] }}" key="{{ @key }}" value="{{ @value }}">
 
         <check if="@value.type === 'checkbox'">
-
-            <!--
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Default checkbox
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    Checked checkbox
-                </label>
-            </div>
-            -->
-
             <fieldset
-                class="mt-2 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
+                class="mb-4 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
                 <label class="form-check-label mb-2">{{ @value.label }}</label>
+                <check if="@value.description ?? ''"><p class="small">{{ @value.description }}</p></check>
                 <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}" counter="{{ @cnt }}">
                     <div class="form-check">
                         <input type="{{ @value.type }}" value="{{ @val }}"
@@ -53,29 +38,13 @@
                     </div>
                 </repeat>
             </fieldset>
-
-
         </check>
 
         <check if="@value.type === 'radio'">
-            <!--
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                    Default radio
-                </label>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
-                    Default checked radio
-                </label>
-            </div>
-            -->
             <fieldset
-                class="mt-2 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
+                class="mb-4 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
                 <label class="form-check-label mb-2">{{ @value.label }}</label>
+                <check if="@value.description ?? ''"><p class="small">{{ @value.description }}</p></check>
                 <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}" counter="{{ @cnt }}">
                     <div class="form-check">
                         <input type="{{ @value.type }}" value="{{ @val }}"
@@ -93,8 +62,9 @@
         </check>
 
         <check if="@value.type === 'select'">
-            <div class="form-floating">
-                <select class="form-select mt-2 {{ @value._class ?? '' }}" name="{{ @value.name }}"
+            <check if="@value.description ?? ''"><p class="small">{{ @value.description }}</p></check>
+            <div class="form-floating mb-4">
+                <select class="form-select {{ @value._class ?? '' }}" name="{{ @value.name }}"
                     id="{{ @value.name }}" aria-label="" {{ (@VIEWVARS.form._valid ?? '' ) ? 'disabled' : '' }}>
                     <option value="">Please select ...</option>
                     <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}">
@@ -110,9 +80,10 @@
 
         <check
             if="@value.type === 'text' || @value.type === 'number' ||  @value.type === 'email' || @value.type === 'password'">
-            <div class="form-floating">
+            <check if="@value.description ?? ''"><p class="small">{{ @value.description }}</p></check>
+            <div class="form-floating mb-4">
                 <input name="{{ @value.name }}" id="{{ @value.name }}" value="{{ @POST[@value.name] ?? '' }}"
-                    aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
+                    aria-describedby="{{ @value.name }}-feedback" class="form-control {{ @value._class ?? '' }}"
                     type="{{ @value.type ?? 'text' }}" placeholder="{{ @value.label }}" {{ (@VIEWVARS.form._valid ?? ''
                     ) ? 'disabled' : '' }}>
                 <label for="{{ @value.name }}">{{ @value.label }}</label>
@@ -122,9 +93,10 @@
         </check>
 
         <check if="@value.type === 'textarea'">
-            <div class="form-floating">
+            <check if="@value.description ?? ''"><p class="small">{{ @value.description }}</p></check>
+            <div class="form-floating mb-4">
                 <textarea rows="5" name="{{ @value.name }}" id="{{ @value.name }}"
-                    aria-describedby="{{ @value.name }}-feedback" class="form-control mt-2 {{ @value._class ?? '' }}"
+                    aria-describedby="{{ @value.name }}-feedback" class="form-control {{ @value._class ?? '' }}"
                     placeholder="{{ @value.label }}" {{ (@VIEWVARS.form._valid ?? '' ) ? 'disabled' : ''
                     }}>{{ @POST[@value.name] ?? '' }}</textarea>
                 <label for="{{ @value.name }}">{{ @value.label }}</label>
