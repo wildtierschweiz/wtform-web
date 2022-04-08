@@ -1,0 +1,29 @@
+<h1>Login</h1>
+<p class="lead">Please enter login information ...</p>
+
+<check if="isset(@VIEWVARS.form._valid)">
+    <check if="@VIEWVARS.form._valid === true">
+        <true>
+            <div class="alert alert-success" role="alert">
+                {{ @VIEWVARS.form.feedback_valid }}
+            </div>
+        </true>
+        <false>
+            <div class="alert alert-danger" role="alert">
+                {{ @VIEWVARS.form.feedback_invalid }}
+            </div>
+        </false>
+    </check>
+</check>
+
+<form method="POST">
+    <div class="form-floating">
+        <input name="email" id="email" class="form-control mt-2" type="email" placeholder="Email" required>
+        <label for="email">Email</label>
+    </div>
+    <div class="form-floating">
+        <input name="password" id="password" class="form-control mt-2" type="password" placeholder="Password" required>
+        <label for="password">Password</label>
+    </div>
+    <button class="btn btn-lg btn-primary mt-3" type="submit">Login</button>
+</form>

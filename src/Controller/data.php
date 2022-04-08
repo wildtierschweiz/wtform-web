@@ -6,6 +6,7 @@ namespace WildtierSchweiz\WtFormWeb\Controller;
 
 use Exception;
 use WildtierSchweiz\WtFormWeb\Application;
+use WildtierSchweiz\WtFormWeb\Service\AuthService;
 use WildtierSchweiz\WtFormWeb\Service\FormService;
 
 final class data extends Application
@@ -15,6 +16,11 @@ final class data extends Application
      */
     function get()
     {
+        $_auth_service = AuthService::instance();
+        if (!$_auth_service->isAuthenticated()) {
+            self::$_f3->reroute('/' . self::$_f3->get('PARAMS.lang') . '/login');
+            return;
+        }
         $_form_service = FormService::instance();
         $_form_slug = self::$_f3->get('PARAMS.form');
         $_form_lang = self::$_f3->get('PARAMS.lang');
