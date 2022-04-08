@@ -45,8 +45,8 @@ final class forms extends Application
         }
         try {
             $_form_service->loadForm($_form_slug, $_form_lang);
-            $_form = $_form_service->getForm();
             if ($_form_service->validateForm() === true) {
+                $_form = $_form_service->getForm();
                 if ($_form_service->postForm(self::$_f3->get('POST')) === true) {
                     $_mail_service = MailService::instance();
                     $_mail_service->sendMail(
