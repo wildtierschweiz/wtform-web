@@ -8,7 +8,7 @@
     </tr>
     <repeat group="{{ @VIEWVARS.forms ?? [] }}" key="{{ @key }}" value="{{ @value }}">
         <tr>
-            <td>{{ @value.name }}</td>
+            <td>{{ @value.label }}</td>
             <td>{{ @value.description }}</td>
             <td><a href="/{{ @PARAMS.lang }}/{{ @PARAMS.page }}/{{ @value.slug }}"
                     class="btn btn-sm btn-primary">Download</a>

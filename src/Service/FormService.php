@@ -144,6 +144,29 @@ class FormService extends Prefab
     }
 
     /**
+     * get language dependent form list
+     * @param string $lang_
+     * @return array
+     */
+    static function getFormList(string $lang_): array
+    {
+        $_result = [];
+        $_form = new Form();
+        $_form_text = new FormText();
+        foreach ($_form->getForms() as $_key => $_value) {
+            $_form_text_rec = $_form_text->getFormTexts($_value['id'], $lang_);
+            $_result[] = array_merge(
+                $_value,
+                [
+                    'label' => '',
+                ],
+                $_form_text_rec[0] ?? []
+            );
+        }
+        return $_result;
+    }
+
+    /**
      * get loaded form config
      * @return array
      */

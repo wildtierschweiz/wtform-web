@@ -34,7 +34,7 @@ class Form extends Mapper
     function getForms(): array
     {
         $_result = [];
-        foreach ($this->find(NULL, ['order' => 'name ASC']) as $_r)
+        foreach ($this->find(NULL, ['order' => 'slug ASC']) as $_r)
             $_result[] = $_r->cast();
         return $_result;
     }
