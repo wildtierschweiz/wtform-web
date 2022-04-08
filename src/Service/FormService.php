@@ -136,6 +136,12 @@ class FormService extends Prefab
         }
         foreach ($_form_post_rec as $_r) {
             $_data = json_decode($_r['data'], true);
+            // convert arrays to strings
+            array_walk($_data, function (&$item_, $index_) {
+                if (is_array($item_))
+                    $item_ = implode(', ', $item_);
+            });
+            // remove line breaks
             if ($strip_line_breaks_ === true)
                 array_walk($_data, function (&$item_, $index_) {
                     $item_ = str_replace("\r\n", " ", $item_);

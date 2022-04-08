@@ -22,7 +22,14 @@
     <repeat group="@POST" key="@key" value="@value">
         <tr>
             <td>{{ @key }}</td>
-            <td>{{ nl2br(@value) }}</td>
+            <check if="is_array(@value)">
+                <true>
+                    <td>{{ implode(', ', @value) }}</td>
+                </true>
+                <false>
+                    <td>{{ nl2br(@value) }}</td>
+                </false>
+            </check>
         </tr>
     </repeat>
 </table>
