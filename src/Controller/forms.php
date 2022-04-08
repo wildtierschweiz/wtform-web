@@ -52,7 +52,7 @@ final class forms extends Application
                     $_mail_service->sendMail(
                         [$_form['recv_mail'] => $_form['recv_name']],
                         'Wildtier Schweiz (Forms) - ' . $_form['label'],
-                        ''
+                        'test'
                     );
                 }
             }
