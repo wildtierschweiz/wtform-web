@@ -15,8 +15,9 @@ class FormControlText extends Mapper
     }
 
     /**
-     * get form controls for a form
+     * get form control texts
      * @param int $id_form_
+     * @param string $lang_
      * @return array
      */
     function getFormControlTexts(int $id_form_control_, string $lang_): array

@@ -22,8 +22,8 @@ final class data extends Application
             return;
         }
         $_form_service = FormService::instance();
-        self::$_f3->set('RESPONSE.filename', 'data-' . $_form_slug . '.csv');
-        self::$_f3->set('RESPONSE.mime', 'text/csv');
         self::$_f3->set('RESPONSE.data', $_form_service->getFormDataCsv($_form_slug));
+        self::$_f3->set('RESPONSE.mime', 'text/csv');
+        self::$_f3->set('RESPONSE.filename', 'data-' . $_form_slug . '.csv');
     }
 }

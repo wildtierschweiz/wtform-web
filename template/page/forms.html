@@ -1,10 +1,25 @@
-<h1>{{ @VIEWVARS.form.name ?? '' }}</h1>
+<h1>{{ @VIEWVARS.form.label ?? '' }}</h1>
 <p class="lead">{{ @VIEWVARS.form.description ?? '' }}</p>
+
+<check if="isset(@VIEWVARS.form._valid)">
+    <check if="@VIEWVARS.form._valid === true">
+        <true>
+            <div class="alert alert-success" role="alert">
+                {{ @VIEWVARS.form.feedback_valid }}
+            </div>
+        </true>
+        <false>
+            <div class="alert alert-danger" role="alert">
+                {{ @VIEWVARS.form.feedback_invalid }}
+            </div>
+        </false>
+    </check>
+</check>
+
 <form class="needs-validation" method="POST">
     <repeat group="{{ @VIEWVARS.form._controls ?? [] }}" key="{{ @key }}" value="{{ @value }}">
 
         <check if="@value.type === 'radio'">
-
             <!--
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -54,7 +69,6 @@
                 <div id="{{ @value.name }}-feedback" class="invalid-feedback">{{ @value.feedback_invalid }}</div>
             </div>
         </check>
-
 
         <check
             if="@value.type === 'text' || @value.type === 'number' ||  @value.type === 'email' || @value.type === 'password'">

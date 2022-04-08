@@ -10,6 +10,7 @@ use WildtierSchweiz\WtFormWeb\Model\Form;
 use WildtierSchweiz\WtFormWeb\Model\FormControl;
 use WildtierSchweiz\WtFormWeb\Model\FormControlText;
 use WildtierSchweiz\WtFormWeb\Model\FormPost;
+use WildtierSchweiz\WtFormWeb\Model\FormText;
 
 class FormService extends Prefab
 {
@@ -38,6 +39,21 @@ class FormService extends Prefab
         if (!count($_form_rec))
             throw new Exception('FORM_NOT_FOUND');
         self::$_form = $_form_rec[0];
+        $_form_text = new FormText();
+        $_form_text_rec = $_form_text->getFormTexts(self::$_form['id'], $lang_);
+        // prevents overwrite if form id with form text id
+        unset($_form_text_rec[0]['id']);
+        self::$_form = array_merge(
+            self::$_form,
+            [
+                'label' => '',
+                'label_submit' => 'Submit',
+                'description' => NULL,
+                'feedback_valid' => NULL,
+                'feedback_invalid' => NULL,
+            ],
+            $_form_text_rec[0] ?? []
+        );
         $_form_control = new FormControl();
         $_form_control_rec = $_form_control->getFormControlsByFormId(self::$_form['id']);
         if (!count($_form_control_rec))
@@ -54,7 +70,7 @@ class FormService extends Prefab
                     'feedback_invalid' => NULL,
                     'options' => NULL,
                 ],
-                $_form_control_text_rec[0]
+                $_form_control_text_rec[0] ?? []
             );
         }
         self::$_form['_controls'] = $_form_control_rec;
@@ -94,10 +110,13 @@ class FormService extends Prefab
     /**
      * get form csv data
      * @param string $form_slug_
+     * @param bool $add_header_
+     * @param bool $strip_line_breaks_
+     * @param bool $add_excel_bom_
      * @throws FORM_NOT_FOUND
      * @return string
      */
-    static function getFormDataCsv(string $form_slug_): string
+    static function getFormDataCsv(string $form_slug_, bool $add_header_ = true, bool $strip_line_breaks_ = true, bool $add_excel_bom_ = true): string
     {
         $_result = '';
         $_form = new Form();
@@ -106,17 +125,19 @@ class FormService extends Prefab
             throw new Exception('FORM_NOT_FOUND');
         $_form_post = new FormPost();
         $_form_control = new FormControl();
-        $_header_csv = $_form_control->getCsvHeaderByFormId($_form_rec[0]['id']);
         $_form_post_rec = $_form_post->getFormPostsByFormId($_form_rec[0]['id']);
-        // output bom for excel compatible csv
-        $_result .= chr(0xEF) . chr(0xBB) . chr(0xBF);
-        $_result .= $_header_csv . "\n";
+        if ($add_excel_bom_ === true)
+            $_result .= chr(0xEF) . chr(0xBB) . chr(0xBF);
+        if ($add_header_ === true) {
+            $_header_csv = $_form_control->getCsvHeaderByFormId($_form_rec[0]['id']);
+            $_result .= $_header_csv . "\n";
+        }
         foreach ($_form_post_rec as $_r) {
-            // remove line breaks from data
             $_data = json_decode($_r['data'], true);
-            array_walk($_data, function(&$item_, $index_) {
-                $item_ = str_replace("\r\n", " ", $item_);
-            });
+            if ($strip_line_breaks_ === true)
+                array_walk($_data, function (&$item_, $index_) {
+                    $item_ = str_replace("\r\n", " ", $item_);
+                });
             $_result .= implode(';', $_data) . "\n";
         }
         return $_result;
