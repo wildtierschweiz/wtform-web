@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WildtierSchweiz\WtFormWeb\Controller;
 
 use Exception;
+use Template;
 use WildtierSchweiz\WtFormWeb\Application;
 use WildtierSchweiz\WtFormWeb\Service\FormService;
 use WildtierSchweiz\WtFormWeb\Service\MailService;
@@ -52,7 +53,7 @@ final class forms extends Application
                     $_mail_service->sendMail(
                         [$_form['recv_mail'] => $_form['recv_name']],
                         'Wildtier Schweiz (Forms) - ' . $_form['label'],
-                        'test'
+                        Template::instance()->render('mail/form.html')
                     );
                 }
             }
