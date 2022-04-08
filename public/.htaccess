@@ -11,8 +11,8 @@ RewriteEngine On
 # RewriteBase /
 
 # redirect to non www
-RewriteCond %{HTTP_HOST} ^www.forms.wildtier.ch [NC]
-RewriteRule ^(.*)$ https://forms.wildtier.ch/$1 [L,R=301]
+RewriteCond %{HTTP_HOST} ^www.form.wildtier.ch [NC]
+RewriteRule ^(.*)$ https://form.wildtier.ch/$1 [L,R=301]
 
 # block access to ini file and tmp directory
 RewriteRule \.phpsh$ - [R=404]
