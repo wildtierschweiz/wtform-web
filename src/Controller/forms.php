@@ -58,7 +58,7 @@ final class forms extends Application
                     );
                 }
             }
-            self::$_f3->set('VIEWVARS.form', $_form);
+            self::$_f3->set('VIEWVARS.form', $_form_service->getForm());
         } catch (Exception $e_) {
             self::$_f3->error(500, $e_->getMessage());
         }
