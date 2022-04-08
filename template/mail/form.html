@@ -1,8 +1,20 @@
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 5px;
+    }
+</style>
 <table>
-<repeat group="@POST" key="@key" value="@value">
-    <tr>
-        <td>{{ @key }}</td>
-        <td>{{ @value }}</td>
-    </tr>
-</repeat>
+    <repeat group="@POST" key="@key" value="@value">
+        <tr>
+            <td>{{ @key }}</td>
+            <td>{{ @value }}</td>
+        </tr>
+    </repeat>
 </table>
