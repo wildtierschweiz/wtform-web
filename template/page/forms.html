@@ -21,7 +21,7 @@
 
         <check if="@value.type === 'checkbox'">
             <fieldset
-                class="mb-4 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
+                class="mb-4 p-3 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
                 <label class="form-check-label mb-2">{{ @value.label }}</label>
                 <check if="@value.description ?? ''"><p class="small">{{ @value.description }}</p></check>
                 <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}" counter="{{ @cnt }}">
@@ -42,7 +42,7 @@
 
         <check if="@value.type === 'radio'">
             <fieldset
-                class="mb-4 p-2 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
+                class="mb-4 p-3 border border-1 rounded {{ (@value._class ?? '') === 'is-invalid' ? 'border-danger' : ((@POST[@value.name] ?? '' ) ? 'border-success' : '') }}">
                 <label class="form-check-label mb-2">{{ @value.label }}</label>
                 <check if="@value.description ?? ''"><p class="small">{{ @value.description }}</p></check>
                 <repeat group="{{ @value.options ?? [] }}" key="{{ @val }}" value="{{ @label }}" counter="{{ @cnt }}">
