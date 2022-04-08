@@ -98,7 +98,12 @@
     </repeat>
 
     <check if="!isset(@VIEWVARS.form._valid) || @VIEWVARS.form._valid === false">
-        <button class="btn btn-lg btn-primary mt-3" type="submit">{{
-            @VIEWVARS.form.label_submit ?? 'Submit' }}</button>
+        <true>
+            <button class="btn btn-lg btn-primary mt-3" type="submit">{{
+                @VIEWVARS.form.label_submit ?? 'Submit' }}</button>
+        </true>
+        <false>
+            <!--<a href="#" onclick="javascript:close();" class="btn btn-lg btn-primary mt-3">Close</a>-->
+        </false>
     </check>
 </form>

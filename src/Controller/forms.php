@@ -45,12 +45,18 @@ final class forms extends Application
         }
         try {
             $_form_service->loadForm($_form_slug, $_form_lang);
+            $_form = $_form_service->getForm();
             if ($_form_service->validateForm() === true) {
                 if ($_form_service->postForm(self::$_f3->get('POST')) === true) {
                     $_mail_service = MailService::instance();
+                    $_mail_service->sendMail(
+                        [$_form['recv_email'] => $_form['recv_name']],
+                        'Wildtier Schweiz (Forms) - ' . $_form['label'],
+                        ''
+                    );
                 }
             }
-            self::$_f3->set('VIEWVARS.form', $_form_service->getForm());
+            self::$_f3->set('VIEWVARS.form', $_form);
         } catch (Exception $e_) {
             self::$_f3->error(500, $e_->getMessage());
         }
