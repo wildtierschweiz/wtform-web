@@ -1,5 +1,5 @@
 <h1>{{ @VIEWVARS.form.label ?? '' }}</h1>
-<p class="lead">{{ @VIEWVARS.form.description ?? '' }}</p>
+<p class="lead mb-5">{{ @VIEWVARS.form.description ?? '' }}</p>
 
 <check if="isset(@VIEWVARS.form._valid)">
     <check if="@VIEWVARS.form._valid === true">
