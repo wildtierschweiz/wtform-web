@@ -24,4 +24,5 @@
         </tr>
     </repeat>
 </table>
-<a href="https://form.wildtier.ch/{{ @PARAMS.lang }}/data/{{ @VIEWVARS.form.slug }}">Download Posts</a>
+<br/>
+<a href="{{ ((@SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . '://' . (@SERVER['HTTP_HOST'] ?? '') }}/{{ @PARAMS.lang }}/data/{{ @VIEWVARS.form.slug }}">Download Posts</a>
