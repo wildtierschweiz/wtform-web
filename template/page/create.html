@@ -1,0 +1,77 @@
+<form action="POST">
+
+    <fieldset class="mb-4 p-3 border border-1 rounded">
+        <legend>Form</legend>
+        <div class="form-floating">
+            <input name="slug" id="slug" type="text" class="form-control mt-2" placeholder="Slug" required>
+            <label for="slug">Slug</label>
+        </div>
+        <div class="form-floating">
+            <input name="recv_name" id="recv_name" class="form-control mt-2" type="text" placeholder="Receiver Name"
+                required>
+            <label for="recv_name">Receiver Name</label>
+        </div>
+        <div class="form-floating">
+            <input name="recv_mail" id="recv_mail" class="form-control mt-2" type="email"
+                placeholder="Receiver Mail-Address" required>
+            <label for="recv_mail">Receiver Mail-Address</label>
+        </div>
+    </fieldset>
+
+    <fieldset class="mb-4 p-3 border border-1 rounded">
+        <legend>Controls</legend>
+
+        <!--
+        <div class="form-floating mt-2">
+            <select class="form-select" name="id_form" id="id_form" aria-label="">
+                <option value="">Please select ...</option>
+                <repeat group="{{ @VIEWVARS.formlist }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @counter }}">
+                    <option value="{{ @value.id }}" {{ @value==(@POST['_controls'][0]['id_form'] ?? '' ) ? 'selected'
+                        : '' }}>{{ @value.slug }}</option>
+                </repeat>
+            </select>
+            <label for="id_form">Form ID</label>
+        </div>
+        -->
+
+        <div class="form-floating">
+            <input name="_controls[0]['name']" id="_controls_0_name" type="text" class="form-control mt-2"
+                placeholder="Name" required>
+            <label for="_controls_0_name">Name</label>
+        </div>
+
+        <div class="form-floating mt-2">
+            <select class="form-select" name="_controls[0]['type']" id="_controls_0_type" aria-label="">
+                <option value="">Please select ...</option>
+                <option value="text" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>text
+                </option>
+                <option value="number" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>number
+                </option>
+                <option value="email" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>email
+                </option>
+                <option value="textarea" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>textarea
+                </option>
+                <option value="radio" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>radio
+                </option>
+                <option value="checkbox" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>checkbox
+                </option>
+            </select>
+            <label for="_controls_0_type">Type</label>
+        </div>
+
+        <div class="form-floating mt-2">
+            <input name="_controls[0]['sortnr']" id="_controls_0_sortnr" type="number" class="form-control mt-2"
+                placeholder="Sort Number" required>
+            <label for="_controls_0_sortnr">Sort Number</label>
+        </div>
+
+        <div class="form-check mt-2">
+            <input name="_controls[0]['is_required']" id="_controls_0_is_required" type="checkbox" value="1"
+                class="form-check-input">
+            <label class="form-check-label" for="_controls_0_is_required">
+                Required
+            </label>
+        </div>
+
+    </fieldset>
+</form>
