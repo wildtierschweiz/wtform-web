@@ -1,7 +1,7 @@
 <form action="POST">
+    <h2>Form</h2>
 
     <fieldset class="mt-4 p-3 border border-1 rounded">
-        <legend>Form</legend>
         <div class="form-floating mt-2">
             <input name="form['slug']" id="form_slug" type="text" class="form-control" placeholder="Slug" required>
             <label for="form_slug">Slug</label>
@@ -18,7 +18,7 @@
         </div>
 
         <fieldset class="mt-4 p-3 border border-1 rounded" id="fs-form-text">
-            <legend>Language</legend>
+            <legend>Language 1</legend>
             <div class="div-form-text">
                 <div class="form-floating mt-2">
                     <select class="form-select" name="form['_text'][0]['lang']" id="form_text_0_lang" aria-label="">
@@ -59,8 +59,10 @@
 
     </fieldset>
 
+    <h2 class="mt-5">Controls</h2>
+
     <fieldset class="mt-4 p-3 border border-1 rounded">
-        <legend>Controls</legend>
+        <legend>Control 1</legend>
         <div class="form-floating mt-2">
             <input name="form['_controls'][0]['name']" id="form_controls_0_name" type="text" class="form-control"
                 placeholder="Name" required>
@@ -98,7 +100,7 @@
         </div>
 
         <fieldset class="mt-4 p-3 border border-1 rounded" id="fs-form-text">
-            <legend>Language</legend>
+            <legend>Language 1</legend>
             <div class="form-floating mt-2">
                 <select class="form-select" name="form['_controls'][0]['_text'][0]['lang']" id="form_controls_0_text_0_lang" aria-label="">
                     <option value="">Please select ...</option>
@@ -133,8 +135,8 @@
             </div>
             <div class="form-floating mt-2">
                 <textarea rows="5" name="form['_controls'][0]['_text'][0]['options']"
-                    id="form_controls_0_text_0_options" class="form-control" placeholder="Description"></textarea>
-                <label for="form_controls_0_text_0_options">Description</label>
+                    id="form_controls_0_text_0_options" class="form-control" placeholder="Options"></textarea>
+                <label for="form_controls_0_text_0_options">Options</label>
             </div>
         </fieldset>
 
