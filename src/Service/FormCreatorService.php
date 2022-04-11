@@ -23,5 +23,15 @@ class FormCreatorService extends Prefab
         self::$_form = new Basket($name_);
     }
 
-    
+    public function addFormText()
+    {
+    }
+
+    public function addFormControl()
+    {
+    }
+
+    public function addFormControlText()
+    {
+    }
 }
