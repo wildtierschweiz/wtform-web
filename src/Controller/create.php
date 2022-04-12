@@ -37,6 +37,7 @@ final class create extends Application
                 $_form_creator_service->addFormText();
                 break;
         }
+        $_form_creator_service->setValues();
         self::$_f3->reroute('/' . self::$_f3->get('PARAMS.lang') . '/' . self::$_f3->get('PARAMS.page'));
     }
 }

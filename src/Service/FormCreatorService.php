@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WildtierSchweiz\WtFormWeb\Service;
 
 use Base;
+use Log;
 use Prefab;
 
 /**
@@ -22,31 +23,41 @@ class FormCreatorService extends Prefab
     {
         self::$_f3 = Base::instance();
 
-        self::$_f3->set('SESSION._creator.form', []);
-        self::$_f3->set('SESSION._creator.form', [
-            'slug' => [
-                'id' => 'slug',
-                'type' => 'text',
-                'label' => 'Slug',
-                'value' => '',
-            ],
-            'recv_name' => [
-                'id' => 'recv_name',
-                'type' => 'text',
-                'label' => 'Receiver Name',
-                'value' => '',
-            ],
-            'recv_mail' => [
-                'id' => 'recv_mail',
-                'type' => 'email',
-                'label' => 'Receiver Mail',
-                'value' => '',
-            ],
-        ]);
-
+        //self::$_f3->set('SESSION._creator.form', []);
         //self::$_f3->set('SESSION._creator.form_text', []);
-        self::addFormText();
+
+        self::addForm();
+
+        
         //self::addFormText();
+        //self::addFormText();
+    }
+
+    static public function addForm()
+    {
+        if (!count(self::$_f3->get('SESSION._creator.form') ?? [])) {
+            self::$_f3->set('SESSION._creator.form', []);
+            self::$_f3->set('SESSION._creator.form', [
+                'slug' => [
+                    'id' => 'slug',
+                    'type' => 'text',
+                    'label' => 'Slug',
+                    'value' => '',
+                ],
+                'recv_name' => [
+                    'id' => 'recv_name',
+                    'type' => 'text',
+                    'label' => 'Receiver Name',
+                    'value' => '',
+                ],
+                'recv_mail' => [
+                    'id' => 'recv_mail',
+                    'type' => 'email',
+                    'label' => 'Receiver Mail',
+                    'value' => '',
+                ],
+            ]);
+        }
     }
 
 
@@ -119,5 +130,19 @@ class FormCreatorService extends Prefab
             $_result[$_lang] = strtoupper($_lang);
         }
         return $_result;
+    }
+
+    static public function setValues()
+    {
+        foreach (self::$_f3->get('POST.form') as $_key => $_value) {
+            self::$_f3->set('SESSION._creator.form.' . $_key . '.value', $_value);
+        }
+        self::logs(self::$_f3->get('SESSION._creator.form'));
+    }
+
+    static private function logs(mixed $subject_)
+    {
+        $_log = new Log('log.txt');
+        $_log->write(print_r($subject_, true));
     }
 }

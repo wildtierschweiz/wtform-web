@@ -7,7 +7,7 @@
                 <div class="col-md-4">
                     <div class="form-floating mt-2">
                         <input name="form[{{ @value.id }}]" id="{{ @value.id }}" type="{{ @value.type }}"
-                            class="form-control" placeholder="{{ @value.id }}" required>
+                            class="form-control" placeholder="{{ @value.id }}" value="{{ @value.value }}" required>
                         <label for="{{ @value.id }}">{{ @value.label }}</label>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                                 id="form_text_{{ @key1 }}_{{ @value1.id }}">
                                 <option value="">Please select ...</option>
                                 <repeat group="@value1.options ?? []" key="@k" value="@v" counter="@c">
-                                    <option value="{{ @k }}">{{ @v }}</option>
+                                    <option value="{{ @k }}" {{ @value1.value ?? '' == @k ? 'selected' : '' }}>{{ @v }}</option>
                                 </repeat>
                             </select>
                             <label for="form_text_{{ @key1 }}_{{ @value1.id }}">{{ @value1.label }}</label>
@@ -33,7 +33,7 @@
                     <check if="@value1.type === 'text'">
                         <div class="form-floating mt-2">
                             <input name="form['_text'][{{ @key }}][{{ @value1.id }}]" id="form_text_{{ @key1 }}_{{ @value1.id }}"
-                                type="{{ @value1.type }}" class="form-control" placeholder="{{ @value1.label }}"
+                                type="{{ @value1.type }}" class="form-control" placeholder="{{ @value1.label }}" value="{{ @value1.value }}"
                                 required>
                             <label for="form_text_{{ @key1 }}_{{ @value1.id }}">{{ @value1.label }}</label>
                         </div>
@@ -41,7 +41,7 @@
                     <check if="@value1.type === 'textarea'">
                         <div class="form-floating mt-2">
                             <textarea name="form['_text'][{{ @key }}][{{ @value1.id }}]" id="form_text_{{ @key1 }}_{{ @value1.id }}"
-                                class="form-control" placeholder="Description"></textarea>
+                                class="form-control" placeholder="Description">{{ @value1.value }}</textarea>
                             <label for="form_text_{{ @key1 }}_{{ @value1.id }}">Description</label>
                         </div>
                     </check>
