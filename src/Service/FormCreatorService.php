@@ -44,7 +44,14 @@ class FormCreatorService extends Prefab
             ],
         ]);
 
-        self::$_f3->set('SESSION._creator.form_text', []);
+        //self::$_f3->set('SESSION._creator.form_text', []);
+        self::addFormText();
+        //self::addFormText();
+    }
+
+
+    static public function addFormText()
+    {
         self::$_f3->push('SESSION._creator.form_text', [
             [
                 'id' => 'lang',
@@ -84,11 +91,6 @@ class FormCreatorService extends Prefab
                 'value' => '',
             ],
         ]);
-    }
-
-
-    static public function addFormText()
-    {
     }
 
     static public function addFormControl()
