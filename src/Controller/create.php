@@ -14,6 +14,9 @@ final class create extends Application
     {
         $_form_creator_service = FormCreatorService::instance();
 
+        if (self::$_f3->get('GET.clear') !== NULL)
+            $_form_creator_service::resetForm();
+
         foreach (glob('../dict/*.ini') as $_file) {
             $_lang = explode('.', end(explode('/', $_file)))[0];
             self::$_f3->push('VIEWVARS.langlist', [
@@ -24,6 +27,7 @@ final class create extends Application
 
         self::$_f3->set('VIEWVARS.form', $_form_creator_service->getForm());
         self::$_f3->set('VIEWVARS.form_text', $_form_creator_service->getFormText());
+        self::$_f3->set('VIEWVARS.form_control', $_form_creator_service->getFormControl());
     }
 
     /**

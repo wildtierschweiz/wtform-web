@@ -7,24 +7,25 @@
                 <div class="col-md-4">
                     <div class="form-floating mt-2">
                         <input name="form[{{ @value.id }}]" id="{{ @value.id }}" type="{{ @value.type }}"
-                            class="form-control" placeholder="{{ @value.id }}" value="{{ @value.value }}" required>
+                            class="form-control" placeholder="{{ @value.id }}" value="{{ @value.value }}">
                         <label for="{{ @value.id }}">{{ @value.label }}</label>
                     </div>
                 </div>
             </repeat>
         </div>
 
-        <repeat group="@VIEWVARS.form_text" key="@key" value="@value" counter="@counter">
+        <repeat group="@VIEWVARS.form_text ?? []" key="@key" value="@value" counter="@counter">
             <fieldset class="mt-4 p-3 border border-1 rounded">
                 <legend>Language {{ @counter }}</legend>
                 <repeat group="@value" key="@key1" value="@value1" counter="@counter1">
                     <check if="@value1.type === 'select'">
                         <div class="form-floating mt-2">
-                            <select class="form-select" name="form['_text'][{{ @key }}][{{ @value1.id }}]"
+                            <select class="form-select" name="form_text[{{ @key }}][{{ @value1.id }}]"
                                 id="form_text_{{ @key1 }}_{{ @value1.id }}">
                                 <option value="">Please select ...</option>
                                 <repeat group="@value1.options ?? []" key="@k" value="@v" counter="@c">
-                                    <option value="{{ @k }}" {{ @value1.value ?? '' == @k ? 'selected' : '' }}>{{ @v }}</option>
+                                    <option value="{{ @k }}" {{ @value1.value ?? ''==@k ? 'selected' : '' }}>{{ @v }}
+                                    </option>
                                 </repeat>
                             </select>
                             <label for="form_text_{{ @key1 }}_{{ @value1.id }}">{{ @value1.label }}</label>
@@ -32,16 +33,17 @@
                     </check>
                     <check if="@value1.type === 'text'">
                         <div class="form-floating mt-2">
-                            <input name="form['_text'][{{ @key }}][{{ @value1.id }}]" id="form_text_{{ @key1 }}_{{ @value1.id }}"
-                                type="{{ @value1.type }}" class="form-control" placeholder="{{ @value1.label }}" value="{{ @value1.value }}"
-                                required>
+                            <input name="form_text[{{ @key }}][{{ @value1.id }}]"
+                                id="form_text_{{ @key1 }}_{{ @value1.id }}" type="{{ @value1.type }}"
+                                class="form-control" placeholder="{{ @value1.label }}" value="{{ @value1.value }}">
                             <label for="form_text_{{ @key1 }}_{{ @value1.id }}">{{ @value1.label }}</label>
                         </div>
                     </check>
                     <check if="@value1.type === 'textarea'">
                         <div class="form-floating mt-2">
-                            <textarea name="form['_text'][{{ @key }}][{{ @value1.id }}]" id="form_text_{{ @key1 }}_{{ @value1.id }}"
-                                class="form-control" placeholder="Description">{{ @value1.value }}</textarea>
+                            <textarea name="form_text[{{ @key }}][{{ @value1.id }}]"
+                                id="form_text_{{ @key1 }}_{{ @value1.id }}" class="form-control"
+                                placeholder="Description">{{ @value1.value }}</textarea>
                             <label for="form_text_{{ @key1 }}_{{ @value1.id }}">Description</label>
                         </div>
                     </check>
@@ -50,121 +52,118 @@
         </repeat>
         <button name="_action" value="addFormText" class="btn btn-primary mt-2">Add Language</button>
 
-
     </fieldset>
 
     <h2 class="mt-5">Controls</h2>
 
-    <fieldset class="mt-4 p-3 border border-1 rounded">
-        <legend>Control 1</legend>
 
-        <div class="row">
-            <div class="col-md-4">
+    <repeat group="@VIEWVARS.form_control ?? []" key="@key" value="@value" counter="@counter">
+
+        <fieldset class="mt-4 p-3 border border-1 rounded">
+            <legend>Control {{ @counter }}</legend>
+
+            
+            <repeat group="@value" key="@key1" value="@value1" counter="@counter1">
+
+                <check if="@value1.type === 'text' || @value1.type === 'number'">
+                    <div class="form-floating mt-2">
+                        <input name="form_control[{{ @key1 }}][{{ @value1.id }}]"
+                            id="form_control_{{ @key1 }}_{{ @value1.id }}" type="{{ @value1.type }}"
+                            class="form-control" placeholder="{{ @value1.label }}">
+                        <label for="form_control_{{ @key1 }}_{{ @value1.id }}">{{ @value1.label }}</label>
+                    </div>
+                </check>
+
+                <check if="@value1.type === 'select'">
+                    <div class="form-floating mt-2">
+                        <select class="form-select" name="form_control[{{ @key1 }}][{{ @value1.id }}]"
+                            id="form_control_{{ @key1 }}_{{ @value1.id }}" aria-label="">
+                            <option value="">Please select ...</option>
+                            <repeat group="@value1.options ?? []" key="@k" value="@v" counter="@c">
+                                <option value="{{ @k }}" {{ @value1.value ?? ''==@k ? 'selected' : '' }}>{{ @v }}
+                                </option>
+                            </repeat>
+                        </select>
+                        <label for="form_control_{{ @key1 }}_{{ @value1.id }}">Type</label>
+                    </div>
+                </check>
+
+                <check if="@value1.type === 'checkbox'">
+                    <div class="form-check mt-2">
+                        <input name="form_control[{{ @key1 }}][{{ @value1.id }}]"
+                            id="form_control_{{ @key1 }}_{{ @value1.id }}" type="{{ @value1.type }}" value="1"
+                            class="form-check-input">
+                        <label class="form-check-label" for="form_control_{{ @key1 }}_{{ @value1.id }}">
+                            {{ @value1.label }}
+                        </label>
+                    </div>
+                </check>
+
+
+
+
+
+                <!--
+            <fieldset class="mt-4 p-3 border border-1 rounded" id="fs-form-text">
+                <legend>Language 1</legend>
                 <div class="form-floating mt-2">
-                    <input name="form['_controls'][0]['name']" id="form_controls_0_name" type="text"
-                        class="form-control" placeholder="Name" required>
-                    <label for="form_controls_0_name">Name</label>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-floating mt-2">
-                    <select class="form-select" name="form['_controls'][0]['type']" id="form_controls_0_type"
-                        aria-label="">
+                    <select class="form-select" name="form_control_text[0]['lang']"
+                        id="form_control_0_text_0_lang" aria-label="">
                         <option value="">Please select ...</option>
-                        <option value="text" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>text
-                        </option>
-                        <option value="number" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>
-                            number
-                        </option>
-                        <option value="email" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>
-                            email
-                        </option>
-                        <option value="textarea" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>
-                            textarea
-                        </option>
-                        <option value="radio" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>
-                            radio
-                        </option>
-                        <option value="checkbox" {{ @value==(@POST['_controls'][0]['type'] ?? '' ) ? 'selected' : '' }}>
-                            checkbox
-                        </option>
+                        <repeat group="@VIEWVARS.langlist" key="@key" value="@value" counter="@counter">
+                            <option value="{{ @value.key }}">{{ @value.value }}</option>
+                        </repeat>
                     </select>
-                    <label for="form_controls_0_type">Type</label>
+                    <label for="form_control_0_text_0_lang">Language</label>
                 </div>
-            </div>
-            <div class="col-md-4">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-floating mt-2">
+                            <input name="form_control_text[0]['label']" id="form_control_0_text_0_label"
+                                type="text" class="form-control" placeholder="Label">
+                            <label for="form_control_0_text_0_label">Label</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-floating mt-2">
+                            <input name="form_control_text[0]['description']"
+                                id="form_control_0_text_0_description" type="text" class="form-control"
+                                placeholder="Description">
+                            <label for="form_control_0_text_0_description">Description</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mt-2">
+                            <input name="form_control_text[0]['feedback_valid']"
+                                id="form_control_0_text_0_feedback_valid" type="text" class="form-control"
+                                placeholder="Feedback Valid">
+                            <label for="form_control_0_text_0_feedback_valid">Feedback Valid</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mt-2">
+                            <input name="form_control_text[0]['feedback_invalid']"
+                                id="form_control_0_text_0_feedback_invalid" type="text" class="form-control"
+                                placeholder="Feedback Invalid">
+                            <label for="form_control_0_text_0_feedback_invalid">Feedback Invalid</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-floating mt-2">
-                    <input name="form['_controls'][0]['sortnr']" id="form_controls_0_sortnr" type="number"
-                        class="form-control" placeholder="Sort Number" required>
-                    <label for="form_controls_0_sortnr">Sort Number</label>
+                    <textarea rows="5" name="form_control_text[0]['options']"
+                        id="form_control_0_text_0_options" class="form-control" placeholder="Options"></textarea>
+                    <label for="form_control_0_text_0_options">Options</label>
                 </div>
-            </div>
-        </div>
+            </fieldset>
+        -->
 
-        <div class="form-check mt-2">
-            <input name="form['_controls'][0]['is_required']" id="form_controls_0_is_required" type="checkbox" value="1"
-                class="form-check-input">
-            <label class="form-check-label" for="form_controls_0_is_required">
-                Required
-            </label>
-        </div>
-
-        <fieldset class="mt-4 p-3 border border-1 rounded" id="fs-form-text">
-            <legend>Language 1</legend>
-            <div class="form-floating mt-2">
-                <select class="form-select" name="form['_controls'][0]['_text'][0]['lang']"
-                    id="form_controls_0_text_0_lang" aria-label="">
-                    <option value="">Please select ...</option>
-                    <repeat group="@VIEWVARS.langlist" key="@key" value="@value" counter="@counter">
-                        <option value="{{ @value.key }}">{{ @value.value }}</option>
-                    </repeat>
-                </select>
-                <label for="form_controls_0_text_0_lang">Language</label>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-floating mt-2">
-                        <input name="form['_controls'][0]['_text'][0]['label']" id="form_controls_0_text_0_label"
-                            type="text" class="form-control" placeholder="Label" required>
-                        <label for="form_controls_0_text_0_label">Label</label>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="form-floating mt-2">
-                        <input name="form['_controls'][0]['_text'][0]['description']"
-                            id="form_controls_0_text_0_description" type="text" class="form-control"
-                            placeholder="Description" required>
-                        <label for="form_controls_0_text_0_description">Description</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-floating mt-2">
-                        <input name="form['_controls'][0]['_text'][0]['feedback_valid']"
-                            id="form_controls_0_text_0_feedback_valid" type="text" class="form-control"
-                            placeholder="Feedback Valid" required>
-                        <label for="form_controls_0_text_0_feedback_valid">Feedback Valid</label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-floating mt-2">
-                        <input name="form['_controls'][0]['_text'][0]['feedback_invalid']"
-                            id="form_controls_0_text_0_feedback_invalid" type="text" class="form-control"
-                            placeholder="Feedback Invalid" required>
-                        <label for="form_controls_0_text_0_feedback_invalid">Feedback Invalid</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-floating mt-2">
-                <textarea rows="5" name="form['_controls'][0]['_text'][0]['options']"
-                    id="form_controls_0_text_0_options" class="form-control" placeholder="Options"></textarea>
-                <label for="form_controls_0_text_0_options">Options</label>
-            </div>
+            </repeat>
         </fieldset>
 
-    </fieldset>
+    </repeat>
 </form>
