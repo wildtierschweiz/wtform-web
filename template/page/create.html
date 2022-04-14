@@ -1,5 +1,4 @@
 <pre>{{ print_r(@VIEWVARS.form) }}</pre>
-
 <pre>{{ print_r(@SESSION._creator.form) }}</pre>
 
 <form method="POST">
@@ -55,20 +54,15 @@
             </fieldset>
         </repeat>
         <button name="_action" value="addFormText" class="btn btn-primary mt-2">Add Language</button>
-
     </fieldset>
 
     <h2 class="mt-5">Controls</h2>
-
-
     <repeat group="@VIEWVARS.form_control ?? []" key="@key" value="@value" counter="@counter">
 
         <fieldset class="mt-4 p-3 border border-1 rounded">
             <legend>Control {{ @counter }}</legend>
 
-
             <repeat group="@value" key="@key1" value="@value1" counter="@counter1">
-
                 <check if="@value1.type === 'text' || @value1.type === 'number'">
                     <div class="form-floating mt-2">
                         <input name="form_control[{{ @key1 }}][{{ @value1.id }}]"
@@ -77,7 +71,6 @@
                         <label for="form_control_{{ @key1 }}_{{ @value1.id }}">{{ @value1.label }}</label>
                     </div>
                 </check>
-
                 <check if="@value1.type === 'select'">
                     <div class="form-floating mt-2">
                         <select class="form-select" name="form_control[{{ @key1 }}][{{ @value1.id }}]"
@@ -91,7 +84,6 @@
                         <label for="form_control_{{ @key1 }}_{{ @value1.id }}">Type</label>
                     </div>
                 </check>
-
                 <check if="@value1.type === 'checkbox'">
                     <div class="form-check mt-2">
                         <input name="form_control[{{ @key1 }}][{{ @value1.id }}]"
@@ -102,7 +94,6 @@
                         </label>
                     </div>
                 </check>
-
 
 
 
@@ -168,6 +159,5 @@
 
             </repeat>
         </fieldset>
-
     </repeat>
 </form>
