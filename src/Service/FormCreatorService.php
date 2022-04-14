@@ -190,6 +190,7 @@ class FormCreatorService extends Prefab
 
     static public function setValues()
     {
+        self::logs(self::$_f3->get('POST.form'));
         foreach (self::$_f3->get('POST.form') ?? [] as $_key => $_value)
             self::$_f3->set('SESSION._creator.form.' . $_key . '.value', $_value);
         //foreach (self::$_f3->get('POST.form_text') ?? [] as $_key => $_value)

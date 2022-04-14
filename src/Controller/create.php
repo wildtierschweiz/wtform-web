@@ -14,7 +14,7 @@ final class create extends Application
     {
         $_form_creator_service = FormCreatorService::instance();
 
-        if (self::$_f3->get('GET.clear') !== NULL)
+        if (self::$_f3->get('GET.clear') === '1')
             $_form_creator_service::resetForm();
 
         foreach (glob('../dict/*.ini') as $_file) {

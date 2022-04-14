@@ -1,3 +1,7 @@
+<pre>{{ print_r(@VIEWVARS.form) }}</pre>
+
+<pre>{{ print_r(@SESSION._creator.form) }}</pre>
+
 <form method="POST">
     <h2>Form</h2>
 
@@ -62,7 +66,7 @@
         <fieldset class="mt-4 p-3 border border-1 rounded">
             <legend>Control {{ @counter }}</legend>
 
-            
+
             <repeat group="@value" key="@key1" value="@value1" counter="@counter1">
 
                 <check if="@value1.type === 'text' || @value1.type === 'number'">
